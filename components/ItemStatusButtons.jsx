@@ -50,27 +50,27 @@ export function ItemStatusButtons({ itemId, itemType, currentStatus }) {
   const isResolved = currentStatus === 'resolved';
 
   return (
-    <div className="space-y-2.5">
+    <div className="space-y-3">
       {error && (
-        <p className="text-xs text-rose-500 text-center">{error}</p>
+        <p className="text-xs font-bold text-rose-500 text-center bg-rose-50 py-2 rounded-xl">{error}</p>
       )}
 
       {!isResolved ? (
         <button
           onClick={handleResolve}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 text-white py-3.5 text-sm font-semibold hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-sm disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 text-white py-4 text-[15px] font-bold hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-sm shadow-emerald-200 disabled:opacity-50"
         >
-          <CheckCircle2 size={18} />
+          <CheckCircle2 size={20} />
           {loading ? 'กำลังบันทึก...' : itemType === 'lost' ? 'ได้รับคืนแล้ว ✓' : 'มีคนมารับแล้ว ✓'}
         </button>
       ) : (
         <button
           onClick={handleReopen}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-2xl border border-amber-200 bg-amber-50 text-amber-700 py-3.5 text-sm font-semibold hover:bg-amber-100 active:scale-[0.98] transition-all disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 rounded-2xl border-2 border-amber-200 bg-amber-50 text-amber-700 py-4 text-[15px] font-bold hover:bg-amber-100 active:scale-[0.98] transition-all disabled:opacity-50"
         >
-          <RotateCcw size={16} />
+          <RotateCcw size={18} />
           {loading ? 'กำลังบันทึก...' : 'เปิดรายการอีกครั้ง'}
         </button>
       )}
@@ -78,9 +78,9 @@ export function ItemStatusButtons({ itemId, itemType, currentStatus }) {
       <button
         onClick={handleDelete}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 rounded-2xl border border-rose-200 text-rose-500 py-3 text-sm font-medium hover:bg-rose-50 active:scale-[0.98] transition-all disabled:opacity-50"
+        className="w-full flex items-center justify-center gap-2 rounded-2xl border-2 border-rose-100 bg-white text-rose-500 py-3.5 text-sm font-bold hover:bg-rose-50 hover:border-rose-200 active:scale-[0.98] transition-all disabled:opacity-50"
       >
-        <Trash2 size={15} />
+        <Trash2 size={16} />
         ลบรายการนี้
       </button>
     </div>

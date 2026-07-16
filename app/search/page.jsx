@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AppShell from '@/components/AppShell';
-import { Input, Select } from '@/components/Input';
 import { ItemCard } from '@/components/ItemCard';
 import { Search, Filter, X, Plus } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
@@ -44,17 +43,11 @@ function SearchPageContent() {
   const [showFilter, setShowFilter] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Fetch unread count
   useEffect(() => {
     const fetchUnreadCount = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-
-      const { data: unreadMessages } = await supabase
-        .from('messages')
-        .select('id')
-        .eq('receiver_id', user.id)
-        .eq('is_read', false);
+      const { data: unreadMessages } = await supabase.from('messages').select('id').eq('receiver_id', user.id).eq('is_read', false);
       setUnreadCount(unreadMessages?.length || 0);
     };
 
@@ -94,157 +87,166 @@ function SearchPageContent() {
   return (
     <AppShell 
       title="ค้นหา" 
-      subtitle="ค้นหาสิ่งของหายหรือของที่พบ"
+      subtitle="FINDIT — MMU"
       unreadCount={unreadCount}
-      action={
+      rightAction={
         <Link href={filterType === 'lost' ? '/lost' : filterType === 'found' ? '/found' : '/lost'}>
-          <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-white text-xs font-medium hover:bg-blue-700 transition-colors">
+          <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
             <Plus size={14} />
             แจ้งรายการ
           </button>
         </Link>
       }
     >
-      {/* Search bar */}
-      <div className="mb-4">
-        <div className="relative">
-          <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted z-10" />
-          <input
-            type="text"
-            placeholder="พิมพ์ชื่อสิ่งของ..."
-            value={searchString}
-            onChange={(e) => setSearchString(e.target.value)}
-            className="w-full rounded-2xl border border-line bg-gray-50 px-4 py-3.5 text-[15px] text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 transition-all pl-11 pr-12"
-          />
-          {searchString && (
-            <button
-              onClick={() => setSearchString('')}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-muted/20 hover:bg-muted/30 transition-colors"
-            >
-              <X size={13} className="text-muted" />
-            </button>
-          )}
+      <div className="max-w-4xl mx-auto">
+        {/* Search bar */}
+        <div className="mb-4">
+          <div className="relative">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10" />
+            <input
+              type="text"
+              placeholder="พิมพ์ชื่อสิ่งของ..."
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all pl-11 pr-12 shadow-sm font-medium"
+            />
+            {searchString && (
+              <button
+                onClick={() => setSearchString('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+              >
+                <X size={14} className="text-slate-500" />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Type tabs */}
-      <div className="flex gap-2 mb-4">
-        {TYPE_TABS.map(tab => (
+        {/* Type tabs & filter toggle */}
+        <div className="flex gap-2 mb-4">
+          <div className="flex-1 flex bg-white rounded-xl border border-slate-200/80 p-1 shadow-sm">
+            {TYPE_TABS.map(tab => (
+              <button
+                key={tab.value}
+                onClick={() => setFilterType(tab.value)}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  filterType === tab.value
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
           <button
-            key={tab.value}
-            onClick={() => setFilterType(tab.value)}
-            className={`flex-1 py-2 text-xs font-medium rounded-xl border transition-all ${
-              filterType === tab.value
-                ? 'bg-primary text-white border-primary shadow-sm'
-                : 'bg-white text-muted border-line hover:border-primary/30'
+            onClick={() => setShowFilter(!showFilter)}
+            className={`px-3 py-2 rounded-xl border flex items-center gap-1.5 transition-all text-xs font-bold shadow-sm shrink-0 ${
+              hasActiveFilter
+                ? 'bg-indigo-50 text-indigo-600 border-indigo-200'
+                : 'bg-white text-slate-500 border-slate-200/80 hover:bg-slate-50 hover:text-slate-800'
             }`}
           >
-            {tab.label}
+            <Filter size={14} />
+            {hasActiveFilter ? 'มีตัวกรอง' : 'กรอง'}
           </button>
-        ))}
-        <button
-          onClick={() => setShowFilter(!showFilter)}
-          className={`px-3 py-2 rounded-xl border text-xs font-medium flex items-center gap-1 transition-all ${
-            hasActiveFilter
-              ? 'bg-primary/10 text-primary border-primary/30'
-              : 'bg-white text-muted border-line hover:border-primary/30'
-          }`}
-        >
-          <Filter size={13} />
-          {hasActiveFilter ? 'มีตัวกรอง' : 'กรอง'}
-        </button>
-      </div>
+        </div>
 
-      {/* Expandable filter */}
-      {showFilter && (
-        <div className="mb-4 p-4 rounded-2xl border border-line bg-gray-50 space-y-3">
-          <div>
-            <p className="text-xs font-medium text-muted mb-2">สถานะ</p>
-            <div className="flex gap-2">
-              {STATUS_TABS.map(tab => (
-                <button
-                  key={tab.value}
-                  onClick={() => setFilterStatus(tab.value)}
-                  className={`flex-1 py-2 text-xs font-medium rounded-xl border transition-all ${
-                    filterStatus === tab.value
-                      ? 'bg-ink text-white border-ink'
-                      : 'bg-white text-muted border-line'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+        {/* Expandable filter */}
+        {showFilter && (
+          <div className="mb-5 p-5 rounded-2xl border border-slate-200/80 bg-white shadow-sm space-y-4 animate-fade-in">
+            <div>
+              <p className="text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">สถานะ</p>
+              <div className="flex gap-2 bg-slate-50 p-1 rounded-xl border border-slate-100">
+                {STATUS_TABS.map(tab => (
+                  <button
+                    key={tab.value}
+                    onClick={() => setFilterStatus(tab.value)}
+                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                      filterStatus === tab.value
+                        ? 'bg-slate-800 text-white shadow-sm'
+                        : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-muted mb-2">สถานที่</p>
-            <select
-              value={filterPlace}
-              onChange={(e) => setFilterPlace(e.target.value)}
-              className="w-full rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
-            >
-              {PLACES.map(p => (
-                <option key={p.value} value={p.value}>{p.label}</option>
-              ))}
-            </select>
-          </div>
-          {hasActiveFilter && (
-            <button
-              onClick={() => { setFilterType(''); setFilterStatus('active'); setFilterPlace(''); }}
-              className="text-xs text-rose-500 font-medium flex items-center gap-1"
-            >
-              <X size={12} /> ล้างตัวกรองทั้งหมด
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Results */}
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-semibold text-ink">ผลการค้นหา</h2>
-        <span className="text-xs text-muted bg-gray-100 px-2.5 py-1 rounded-full">
-          {loading ? '...' : `${items.length} รายการ`}
-        </span>
-      </div>
-
-      {loading ? (
-        <div className="space-y-3">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 rounded-2xl bg-gray-100 animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <div className="space-y-3 pb-4">
-          {items.length > 0 ? (
-            items.map((item) => (
-              <ItemCard
-                key={item.id}
-                id={item.id}
-                type={item.type}
-                status={item.status || 'active'}
-                title={item.title}
-                place={item.place}
-                date={item.date ? new Date(item.date).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}
-                imageLabel={item.image_url ? undefined : 'รูปภาพ'}
-                imageUrl={item.image_url}
-              />
-            ))
-          ) : (
-            <div className="text-center py-16 text-muted">
-              <Search size={36} className="mx-auto mb-3 opacity-30" />
-              <p className="text-sm font-medium">ไม่พบรายการสิ่งของ</p>
-              <p className="text-xs mt-1 opacity-70">ลองเปลี่ยนคำค้นหาหรือตัวกรอง</p>
+            <div>
+              <p className="text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">สถานที่</p>
+              <select
+                value={filterPlace}
+                onChange={(e) => setFilterPlace(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 font-medium focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none"
+              >
+                {PLACES.map(p => (
+                  <option key={p.value} value={p.value}>{p.label}</option>
+                ))}
+              </select>
             </div>
-          )}
+            {hasActiveFilter && (
+              <button
+                onClick={() => { setFilterType(''); setFilterStatus('active'); setFilterPlace(''); }}
+                className="text-xs text-rose-500 font-bold flex items-center gap-1 hover:text-rose-600 transition-colors pt-2"
+              >
+                <X size={14} /> ล้างตัวกรองทั้งหมด
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Results Info */}
+        <div className="flex items-center justify-between mb-4 mt-2">
+          <h2 className="text-lg font-bold text-slate-900 font-display">ผลการค้นหา</h2>
+          <span className="text-xs font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full">
+            {loading ? '...' : `${items.length} รายการ`}
+          </span>
         </div>
-      )}
+
+        {/* Results List */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-40 rounded-3xl skeleton bg-white border border-slate-100" />
+            ))}
+          </div>
+        ) : (
+          <div className="pb-4">
+            {items.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {items.map((item) => (
+                  <ItemCard
+                    key={item.id}
+                    id={item.id}
+                    type={item.type}
+                    status={item.status || 'active'}
+                    title={item.title}
+                    place={item.place}
+                    date={item.date ? new Date(item.date).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}
+                    imageLabel={item.image_url ? undefined : 'รูปภาพ'}
+                    imageUrl={item.image_url}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 rounded-3xl border border-slate-200/80 bg-white shadow-sm">
+                <div className="w-16 h-16 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-4">
+                  <Search size={28} className="text-slate-300" />
+                </div>
+                <p className="text-base font-bold text-slate-800 font-display mb-1">ไม่พบรายการสิ่งของ</p>
+                <p className="text-sm text-slate-400 font-medium max-w-xs mx-auto">ลองเปลี่ยนคำค้นหาหรือล้างตัวกรองดูสิ อาจจะมีของที่คุณตามหาอยู่</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </AppShell>
   );
 }
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="p-4 text-center text-muted">กำลังโหลด...</div>}>
+    <Suspense fallback={<div className="p-4 text-center text-slate-400 font-medium">กำลังโหลด...</div>}>
       <SearchPageContent />
     </Suspense>
   );

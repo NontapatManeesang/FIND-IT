@@ -5,16 +5,16 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const STATUS_MAP = {
-  active: { label: 'กำลังหา', cls: 'bg-amber-50 text-amber-600 border-amber-200', icon: Clock },
-  resolved: { label: 'ได้รับคืนแล้ว', cls: 'bg-emerald-50 text-emerald-600 border-emerald-200', icon: CheckCircle2 },
+  active: { label: 'กำลังหา', cls: 'bg-accent/10 text-accent border-accent/20', icon: Clock },
+  resolved: { label: 'ได้รับคืนแล้ว', cls: 'bg-found-subtle text-found border-found-light/30', icon: CheckCircle2 },
 };
 
 export function StatusBadge({ status = 'active', size = 'sm' }) {
   const s = STATUS_MAP[status] || STATUS_MAP.active;
   const Icon = s.icon;
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${s.cls}`}>
-      <Icon size={10} />
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-bold tracking-wide ${s.cls}`}>
+      <Icon size={12} strokeWidth={2.5} />
       {s.label}
     </span>
   );
@@ -22,12 +22,12 @@ export function StatusBadge({ status = 'active', size = 'sm' }) {
 
 export function Tag({ type = 'lost' }) {
   const map = {
-    lost: { label: 'ของหาย', cls: 'bg-rose-50 text-rose-500 border-rose-200' },
-    found: { label: 'พบของ', cls: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+    lost: { label: 'ของหาย', cls: 'bg-lost text-white shadow-sm shadow-lost/30' },
+    found: { label: 'พบของ', cls: 'bg-found text-white shadow-sm shadow-found/30' },
   };
   const t = map[type] || map.lost;
   return (
-    <span className={`inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${t.cls}`}>
+    <span className={`inline-block rounded-full px-3 py-1 text-[11px] font-bold tracking-wider ${t.cls}`}>
       {t.label}
     </span>
   );
@@ -37,59 +37,73 @@ export function ItemCard({ type = 'lost', title, place, date, imageLabel = 'ร�
   const isResolved = status === 'resolved';
 
   const cardContent = (
-    <div className={`flex gap-3 rounded-2xl border bg-white p-3 shadow-soft hover:shadow-md hover:border-primary/40 transition-all duration-200 cursor-pointer relative overflow-hidden ${
-      isResolved ? 'border-emerald-200 opacity-80' : 'border-line'
+    <div className={`group flex flex-col rounded-3xl border bg-white shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer relative overflow-hidden ${
+      isResolved ? 'border-found-light/30 opacity-85' : 'border-line/60 hover:border-primary/40'
     }`}>
       {/* Resolved overlay stripe */}
       {isResolved && (
-        <div className="absolute inset-0 bg-emerald-50/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-found-subtle/30 pointer-events-none z-10" />
       )}
 
-      {imageUrl ? (
-        <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-xl bg-line/50">
-          <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
-        </div>
-      ) : (
-        <div className={`flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-xl text-[10px] text-muted text-center leading-tight ${
-          type === 'lost' ? 'bg-rose-50' : 'bg-emerald-50'
-        }`}>
-          <div className="flex flex-col items-center gap-1">
-            {type === 'lost' ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-rose-300">
-                <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
-                <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-300">
-                <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
-                <polyline points="9,11 12,14 22,4"/>
-              </svg>
-            )}
-          </div>
-        </div>
-      )}
-
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className={`text-sm font-semibold leading-snug line-clamp-2 ${isResolved ? 'text-muted line-through' : 'text-ink'}`}>
-            {title}
-          </h3>
-          <Tag type={type} />
-        </div>
-
-        <div className="mt-1 flex items-center gap-1 text-xs text-muted">
-          <MapPin size={11} className="shrink-0" />
-          <span className="truncate">{place}</span>
-        </div>
-        {date && (
-          <div className="mt-0.5 flex items-center gap-1 text-xs text-muted">
-            <Calendar size={11} className="shrink-0" />
-            <span>{date}</span>
+      {/* Image Area */}
+      <div className="aspect-[4/3] w-full shrink-0 overflow-hidden bg-paper relative">
+        {imageUrl ? (
+          <img src={imageUrl} alt={title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        ) : (
+          <div className={`flex h-full w-full items-center justify-center text-[10px] text-muted text-center leading-tight ${
+            type === 'lost' ? 'bg-lost-subtle/50' : 'bg-found-subtle/50'
+          }`}>
+            <div className="flex flex-col items-center gap-2">
+              {type === 'lost' ? (
+                <div className="w-12 h-12 rounded-full bg-lost-subtle flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-lost-light">
+                    <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                  </svg>
+                </div>
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-found-subtle flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-found-light">
+                    <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+                    <polyline points="9,11 12,14 22,4"/>
+                  </svg>
+                </div>
+              )}
+            </div>
           </div>
         )}
+        
+        {/* Floating Tag */}
+        <div className="absolute top-3 left-3 z-20">
+          <Tag type={type} />
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div className="flex flex-col flex-1 p-4">
+        <h3 className={`text-base font-bold leading-snug line-clamp-2 mb-3 flex-1 ${isResolved ? 'text-muted line-through' : 'text-ink'}`}>
+          {title}
+        </h3>
+
+        <div className="space-y-2 mt-auto">
+          <div className="flex items-center gap-2 text-xs text-ink2 font-medium">
+            <div className="w-5 h-5 rounded-md bg-paper flex items-center justify-center shrink-0">
+               <MapPin size={12} className="text-primary" />
+            </div>
+            <span className="truncate">{place}</span>
+          </div>
+          {date && (
+            <div className="flex items-center gap-2 text-xs text-ink2 font-medium">
+              <div className="w-5 h-5 rounded-md bg-paper flex items-center justify-center shrink-0">
+                 <Calendar size={12} className="text-primary" />
+              </div>
+              <span>{date}</span>
+            </div>
+          )}
+        </div>
 
         {isResolved && (
-          <div className="mt-1.5">
+          <div className="mt-4 pt-3 border-t border-line/50">
             <StatusBadge status="resolved" />
           </div>
         )}
@@ -98,7 +112,7 @@ export function ItemCard({ type = 'lost', title, place, date, imageLabel = 'ร�
   );
 
   if (id) {
-    return <Link href={`/item/${id}`}>{cardContent}</Link>;
+    return <Link href={`/item/${id}`} className="block h-full">{cardContent}</Link>;
   }
 
   return cardContent;
@@ -116,7 +130,7 @@ export function UploadPhoto({ label = 'อัปโหลดรูปภาพ',
   };
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-line bg-gray-50/50 py-10 text-muted hover:border-primary/40 hover:bg-primary/5 transition-all cursor-pointer overflow-hidden group">
+    <div className="relative flex w-full flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-line/80 bg-paper py-12 text-muted hover:border-primary/40 hover:bg-primary-subtle/30 transition-all cursor-pointer overflow-hidden group">
       <input
         type="file"
         name="image"
@@ -125,19 +139,19 @@ export function UploadPhoto({ label = 'อัปโหลดรูปภาพ',
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
       />
       {preview ? (
-        <img src={preview} alt="Preview" className="absolute inset-0 w-full h-full object-cover rounded-2xl" />
+        <img src={preview} alt="Preview" className="absolute inset-0 w-full h-full object-cover rounded-3xl" />
       ) : (
         <>
-          <div className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-line flex items-center justify-center group-hover:border-primary/30 transition-colors">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="text-muted group-hover:text-primary transition-colors">
+          <div className="w-14 h-14 rounded-2xl bg-white shadow-soft border border-line/60 flex items-center justify-center group-hover:border-primary/40 group-hover:scale-110 transition-all duration-300">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted group-hover:text-primary transition-colors">
               <rect x="3" y="5" width="18" height="14" rx="2" />
               <circle cx="8.5" cy="10.5" r="1.5" />
               <path d="M21 15l-5-5-9 9" />
             </svg>
           </div>
-          <div className="text-center">
-            <p className="text-sm font-medium text-ink">{label}</p>
-            <p className="text-xs text-muted mt-0.5">PNG, JPG หรือ WEBP</p>
+          <div className="text-center mt-2">
+            <p className="text-sm font-bold text-ink">{label}</p>
+            <p className="text-xs text-muted mt-1 font-medium">PNG, JPG หรือ WEBP</p>
           </div>
         </>
       )}

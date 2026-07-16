@@ -2,8 +2,8 @@ import TopBar from './TopBar';
 import BottomNav, { SideNav } from './BottomNav';
 
 /**
- * AppShell — ONE template for all pages in FindIt.
- * Responsive: Desktop gets sidebar, mobile gets bottom nav.
+ * AppShell — Fixed-height layout, no page scroll bar.
+ * Desktop: sidebar + scrollable main. Mobile: bottom nav + scrollable main.
  */
 export default function AppShell({
   title,
@@ -31,7 +31,8 @@ export default function AppShell({
             rightAction={rightAction}
           />
         )}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6 pt-4">
+        {/* Scrollable content — only this region scrolls */}
+        <main className="app-main px-4 sm:px-6 lg:px-8 py-6 pb-24 lg:pb-8">
           {children}
         </main>
         {/* Mobile Bottom Nav */}

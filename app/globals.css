@@ -2,148 +2,187 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-html, body {
+/* ===== BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
   height: 100%;
-  background: #F3F4F6;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden; /* No page-level scrollbar */
 }
 
 body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1e293b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+  background: #f1f5f9;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== DESKTOP LAYOUT (>= 1024px) ===== */
+/* ===== LAYOUT — FIXED FULL VIEWPORT ===== */
 .app-stage {
-  min-height: 100dvh;
+  height: 100dvh;
+  width: 100%;
   display: flex;
-  background: #F3F4F6;
+  overflow: hidden;
+  background: #f1f5f9;
 }
 
-/* Mobile: center phone frame */
-@media (max-width: 1023px) {
-  .app-stage {
-    justify-content: center;
-  }
-
-  .app-viewport {
-    width: 100%;
-    max-width: 480px;
-    min-height: 100dvh;
-    background: #FFFFFF;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Tablet: show phone-card style */
-  @media (min-width: 500px) {
-    .app-viewport {
-      min-height: 100dvh;
-    }
-  }
-
-  /* Hide desktop sidebar */
-  .app-sidebar {
-    display: none;
-  }
+/* Sidebar hidden by default (mobile) */
+.app-sidebar {
+  display: none;
 }
 
-/* Desktop: full layout with sidebar */
+/* Main content area */
+.app-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* Scrollable content region */
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.app-main::-webkit-scrollbar {
+  width: 4px;
+}
+.app-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+.app-main::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 99px;
+}
+.app-main::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+/* ===== DESKTOP LAYOUT (≥ 1024px) ===== */
 @media (min-width: 1024px) {
   .app-stage {
-    justify-content: center;
-    align-items: flex-start;
-    gap: 0;
+    background: #f1f5f9;
   }
 
   .app-sidebar {
-    width: 260px;
-    min-height: 100dvh;
-    background: #FFFFFF;
-    border-right: 1px solid #E5E7EB;
+    width: 272px;
+    height: 100dvh;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 0;
-    flex-shrink: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    position: relative;
   }
 
   .app-viewport {
     flex: 1;
-    max-width: 720px;
-    min-height: 100dvh;
-    background: #FFFFFF;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #E5E7EB;
+    max-width: none;
+    background: #f8fafc;
   }
 
-  /* Hide mobile bottom nav on desktop */
   .bottom-nav-mobile {
-    display: none;
+    display: none !important;
   }
 }
 
-@media (min-width: 1280px) {
-  .app-viewport {
-    max-width: 800px;
-  }
+/* ===== TOPBAR ===== */
+.topbar {
+  flex-shrink: 0;
+  position: relative;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  z-index: 10;
 }
 
-input:focus, button:focus, textarea:focus, select:focus {
+/* ===== INPUT FOCUS ===== */
+input:focus, button:focus-visible, textarea:focus, select:focus {
   outline: none;
 }
 
-/* Smooth animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===== ANIMATIONS — NO FLASH ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.3s ease forwards;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.25s ease forwards;
+  animation: fadeIn 0.3s ease forwards;
 }
 
-/* Chat scrollbar */
-.chat-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-.chat-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chat-scroll::-webkit-scrollbar-thumb {
-  background: #E5E7EB;
-  border-radius: 99px;
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
-/* Pulse notification dot */
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+/* ===== PULSE DOT ===== */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.2); }
+  0%   { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
+  70%  { transform: scale(1);   box-shadow: 0 0 0 6px rgba(244, 63, 94, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
 }
+
 .pulse-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot 2s infinite;
 }
+
+/* ===== GLASS ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* ===== CHAT SCROLL ===== */
+.chat-scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+.chat-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ===== BOTTOM NAV SAFE AREA ===== */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }

@@ -49,7 +49,7 @@ export default function FoundItemPage() {
   return (
     <AppShell
       title="แจ้งของที่พบ"
-      subtitle="FINDIT — MMU"
+      subtitle=""
       backHref="/home"
       unreadCount={unreadCount}
     >

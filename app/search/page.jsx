@@ -87,7 +87,7 @@ function SearchPageContent() {
   return (
     <AppShell 
       title="ค้นหา" 
-      subtitle="FINDIT — MMU"
+      subtitle=""
       unreadCount={unreadCount}
       rightAction={
         <Link href={filterType === 'lost' ? '/lost' : filterType === 'found' ? '/found' : '/lost'}>

@@ -46,8 +46,8 @@ export default function HomePage() {
 
   return (
     <AppShell
-      title={`สวัสดี, ${userName} 👋`}
-      subtitle="FINDIT — MMU"
+      title={`HELLO, ${userName} 👋`}
+      subtitle=""
       userName={userName}
       unreadCount={unreadCount}
     >

@@ -49,7 +49,7 @@ export default function LostItemPage() {
   return (
     <AppShell
       title="แจ้งของหาย"
-      subtitle="FINDIT — MMU"
+      subtitle=""
       backHref="/home"
       unreadCount={unreadCount}
     >

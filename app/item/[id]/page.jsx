@@ -28,7 +28,7 @@ export default async function ItemDetailPage({ params }) {
   return (
     <AppShell
       title="รายละเอียด"
-      subtitle="FINDIT — MMU"
+      subtitle=""
       backHref="/search"
       userName={user?.user_metadata?.display_name || user?.email?.split('@')[0]}
     >

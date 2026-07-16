@@ -48,7 +48,7 @@ export function SideNav({ userName: initialUserName, unreadCount = 0 }) {
           </div>
           <div>
             <p className="font-bold text-slate-900 text-base leading-none font-display">FindIt</p>
-            <p className="text-[11px] text-slate-400 mt-0.5 font-medium tracking-wide">มมส. Lost & Found</p>
+            <p className="text-[11px] text-slate-400 mt-0.5 font-medium tracking-wide">อะไรหายก็หาเจอ ❤️</p>
           </div>
         </div>
 

@@ -72,7 +72,7 @@ export default async function ChatListPage() {
   return (
     <AppShell
       title="ข้อความ"
-      subtitle="FINDIT — MMU"
+      subtitle=""
       userName={user?.user_metadata?.display_name || user?.email?.split('@')[0]}
       unreadCount={totalUnread}
     >

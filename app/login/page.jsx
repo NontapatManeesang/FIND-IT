@@ -26,12 +26,12 @@ export default function LoginPage() {
 
   return (
     <AppShell showTopBar={false} showNav={false}>
-      <div className="flex h-full min-h-[90vh] flex-col justify-center py-8">
+     <div className="mx-auto flex h-full min-h-[70vh] w-full max-w-4xl flex-col justify-center py-8">
         <div className="mb-8 flex flex-col items-center">
-          <Logo size="md" />
-          <p className="mt-2 text-xs text-muted">
+          <Logo โsize="md" />
+          {/* <p className="mt-2 text-xs text-muted">
             เข้าสู่ระบบเพื่อแจ้งหรือค้นหาสิ่งของ
-          </p>
+          </p> */}
         </div>
 
         {error && (
@@ -66,7 +66,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-primary text-white py-4 text-[15px] font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-green-700 text-white py-4 text-[15px] font-semibold hover:bg-green-600 active:scale-[0.98] transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -88,7 +88,7 @@ export default function LoginPage() {
         </div>
 
         <Link href="/register">
-          <button className="w-full flex items-center justify-center gap-2 rounded-2xl border border-line bg-white text-ink py-3.5 text-[15px] font-medium hover:bg-gray-50 hover:border-gray-300 transition-all">
+          <button className="w-full flex items-center justify-center gap-2 rounded-2xl border border-line bg-blue-700 text-ink py-3.5 text-[15px] font-medium hover:bg-blue-600 transition-all">
             <Mail size={16} />
             สมัครสมาชิกใหม่
           </button>

@@ -39,14 +39,14 @@ export default async function ProfilePage() {
   return (
     <AppShell
       title="โปรไฟล์"
-      subtitle="FINDIT — MMU"
+      subtitle=""
       userName={displayName}
       unreadCount={unreadCount}
     >
       <div className="max-w-2xl mx-auto space-y-6">
 
         {/* ── Profile Card ── */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-amber-600 to-amber-700 rounded-3xl p-6 text-white">
+        {/* <div className="relative overflow-hidden bg-gradient-to-br from-amber-600 to-amber-700 rounded-3xl p-6 text-white">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4" />
 
@@ -63,7 +63,7 @@ export default async function ProfilePage() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* ── Stats ── */}
         <div className="grid grid-cols-3 gap-3">
@@ -105,7 +105,7 @@ export default async function ProfilePage() {
         {activeItems.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-base font-bold text-slate-900 font-display">กำลังดำเนินการ</h3>
+              <h3 className="text-base font-bold text-slate-900 font-display">รายหารที่คุณกำลังดำเนินการ</h3>
               <span className="text-xs font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-full">
                 {activeItems.length} รายการ
               </span>
@@ -171,7 +171,7 @@ export default async function ProfilePage() {
         )}
 
         {/* ── Logout ── */}
-        <form action={logout}>
+        {/* <form action={logout}>
           <button
             type="submit"
             className="flex items-center gap-3 w-full px-4 py-4 rounded-2xl border border-rose-100 bg-white text-rose-600 hover:bg-rose-50 transition-colors group"
@@ -181,7 +181,7 @@ export default async function ProfilePage() {
             </div>
             <span className="flex-1 text-left text-sm font-bold">ออกจากระบบ</span>
           </button>
-        </form>
+        </form> */}
 
         <div className="h-2" />
       </div>

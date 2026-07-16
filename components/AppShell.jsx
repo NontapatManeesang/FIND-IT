@@ -31,10 +31,12 @@ export default function AppShell({
             rightAction={rightAction}
           />
         )}
-        {/* Scrollable content — only this region scrolls */}
-        <main className="app-main px-4 sm:px-6 lg:px-8 py-6 pb-24 lg:pb-8">
+
+        {/* Scrollable content */}
+        <main className="app-main px-0 py-6 pb-24 lg:pb-8">
           {children}
         </main>
+
         {/* Mobile Bottom Nav */}
         {showNav && <BottomNav unreadCount={unreadCount} />}
       </div>

@@ -7,16 +7,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink:   '#0f172a',
-        ink2:  '#475569',
-        paper: '#f8fafc',
+        ink:   '#1e293b', // slate-800
+        ink2:  '#475569', // slate-600
+        paper: '#f8fafc', // slate-50
         card:  '#ffffff',
-        line:  '#e2e8f0',
-        muted: '#94a3b8',
+        line:  '#e2e8f0', // slate-200
+        muted: '#94a3b8', // slate-400
         primary: {
-          DEFAULT: '#6366f1',
-          light:   '#818cf8',
-          subtle:  '#eef2ff',
+          DEFAULT: '#f59e0b', // amber-500
+          light:   '#fbbf24', // amber-400
+          subtle:  '#fffbeb', // amber-50
         },
         lost: {
           DEFAULT: '#f43f5e',
@@ -28,7 +28,7 @@ module.exports = {
           light:   '#34d399',
           subtle:  '#ecfdf5',
         },
-        accent: '#f59e0b',
+        accent: '#64748b', // slate-500
       },
       fontFamily: {
         display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],

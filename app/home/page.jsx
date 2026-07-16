@@ -56,8 +56,8 @@ export default function HomePage() {
         {/* ── Search ── */}
         <Link href="/search" className="block">
           <div className="relative group cursor-pointer">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-indigo-500 transition-colors z-10" />
-            <div className="w-full bg-white border border-slate-200 rounded-2xl pl-11 pr-4 py-3.5 text-[14px] text-slate-400 shadow-sm group-hover:border-indigo-300 group-hover:shadow-md transition-all font-medium">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-amber-500 transition-colors z-10" />
+            <div className="w-full bg-white border border-slate-200 rounded-2xl pl-11 pr-4 py-3.5 text-[14px] text-slate-400 shadow-sm group-hover:border-amber-300 group-hover:shadow-md transition-all font-medium">
               ค้นหาสิ่งของที่หายหรือพบ...
             </div>
             <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-300 bg-slate-50 border border-slate-200 rounded px-1.5 py-0.5 tracking-wide">
@@ -102,7 +102,7 @@ export default function HomePage() {
           {[
             { label: 'ของหาย',     value: lostItems.length,          color: 'text-rose-500',    bg: 'bg-rose-50',    icon: <PackageX size={16} className="text-rose-400" /> },
             { label: 'พบของ',      value: foundItems.length,         color: 'text-emerald-600', bg: 'bg-emerald-50', icon: <PackageCheck size={16} className="text-emerald-400" /> },
-            { label: 'รายการทั้งหมด', value: items.length, color: 'text-indigo-600', bg: 'bg-indigo-50',  icon: <Search size={16} className="text-indigo-400" /> },
+            { label: 'รายการทั้งหมด', value: items.length, color: 'text-amber-600', bg: 'bg-amber-50',  icon: <Search size={16} className="text-amber-400" /> },
           ].map(s => (
             <div key={s.label} className="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col gap-2">
               <div className={`w-7 h-7 rounded-xl ${s.bg} flex items-center justify-center`}>{s.icon}</div>
@@ -118,7 +118,7 @@ export default function HomePage() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-slate-900 font-display">รายการล่าสุด</h2>
-            <Link href="/search" className="flex items-center gap-1 text-sm text-indigo-600 font-semibold hover:text-indigo-700 transition-colors group">
+            <Link href="/search" className="flex items-center gap-1 text-sm text-amber-600 font-semibold hover:text-amber-700 transition-colors group">
               ดูทั้งหมด
               <ChevronRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>

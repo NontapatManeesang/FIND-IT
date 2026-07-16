@@ -88,7 +88,7 @@ export default function FoundItemPage() {
               name="title"
               required
               placeholder="เช่น บัตรนิสิต, กุญแจรถ, ร่มสีดำ..."
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all"
             />
           </div>
 
@@ -97,7 +97,7 @@ export default function FoundItemPage() {
             <label className="block text-sm font-bold text-slate-700 mb-2">หมวดหมู่</label>
             <select
               name="category"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all appearance-none"
             >
               {CATEGORIES.map(c => (
                 <option key={c.value} value={c.value}>{c.emoji} {c.label}</option>
@@ -114,7 +114,7 @@ export default function FoundItemPage() {
                 name="place"
                 required
                 placeholder="เช่น โรงอาหารกลาง, ลานจอดรถ IT"
-                className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all"
+                className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all"
               />
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function FoundItemPage() {
                 name="date"
                 required
                 type="date"
-                className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-3 text-sm text-slate-900 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all"
+                className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-3 text-sm text-slate-900 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function FoundItemPage() {
               name="description"
               rows={3}
               placeholder="เช่น นำไปฝากไว้ที่เคาน์เตอร์รักษาความปลอดภัย อาคาร IT หรือ ยังถือไว้อยู่..."
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all resize-none"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all resize-none"
             />
           </div>
 

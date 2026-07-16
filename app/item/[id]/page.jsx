@@ -112,9 +112,9 @@ export default async function ItemDetailPage({ params }) {
         {/* ── Description ── */}
         {item.description && (
           <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-5 sm:p-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-3 text-indigo-600">
-              <div className="w-6 h-6 rounded-lg bg-indigo-100 flex items-center justify-center">
-                <span className="text-indigo-600 text-xs font-bold">i</span>
+            <div className="flex items-center gap-2 mb-3 text-amber-600">
+              <div className="w-6 h-6 rounded-lg bg-amber-100 flex items-center justify-center">
+                <span className="text-amber-600 text-xs font-bold">i</span>
               </div>
               <h2 className="text-sm font-bold uppercase tracking-widest font-display">รายละเอียดเพิ่มเติม</h2>
             </div>
@@ -127,9 +127,9 @@ export default async function ItemDetailPage({ params }) {
         {/* ── Reporter Info ── */}
         <div className="flex items-center gap-4 bg-white border border-slate-200/80 rounded-3xl p-5 shadow-sm">
           <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${
-            isOwner ? 'bg-indigo-50 border-indigo-100' : 'bg-slate-50 border-slate-100'
+            isOwner ? 'bg-amber-50 border-amber-100' : 'bg-slate-50 border-slate-100'
           }`}>
-            <User size={24} className={isOwner ? 'text-indigo-500' : 'text-slate-400'} />
+            <User size={24} className={isOwner ? 'text-amber-500' : 'text-slate-400'} />
           </div>
           <div className="flex-1">
             <p className="text-sm font-bold text-slate-900 font-display">
@@ -153,7 +153,7 @@ export default async function ItemDetailPage({ params }) {
         <div className="space-y-3 pt-2">
           {!isOwner && user && !isResolved && (
             <Link href={`/chat/${item.user_id}?item_id=${item.id}`} className="block">
-              <button className="w-full flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 text-white py-4 text-[15px] font-bold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-sm shadow-indigo-200">
+              <button className="w-full flex items-center justify-center gap-2 rounded-2xl bg-amber-600 text-white py-4 text-[15px] font-bold hover:bg-amber-700 active:scale-[0.98] transition-all shadow-sm shadow-amber-200">
                 <MessageCircle size={18} />
                 แชตกับผู้แจ้ง
               </button>
@@ -170,7 +170,7 @@ export default async function ItemDetailPage({ params }) {
 
           {!user && (
             <Link href="/login" className="block">
-              <button className="w-full flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 text-white py-4 text-[15px] font-bold hover:bg-indigo-700 transition-all shadow-sm shadow-indigo-200">
+              <button className="w-full flex items-center justify-center gap-2 rounded-2xl bg-amber-600 text-white py-4 text-[15px] font-bold hover:bg-amber-700 transition-all shadow-sm shadow-amber-200">
                 <User size={18} />
                 เข้าสู่ระบบเพื่อแชต
               </button>

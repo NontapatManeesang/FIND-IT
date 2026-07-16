@@ -91,7 +91,7 @@ function SearchPageContent() {
       unreadCount={unreadCount}
       rightAction={
         <Link href={filterType === 'lost' ? '/lost' : filterType === 'found' ? '/found' : '/lost'}>
-          <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm">
+          <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 transition-colors shadow-sm">
             <Plus size={14} />
             แจ้งรายการ
           </button>
@@ -108,7 +108,7 @@ function SearchPageContent() {
               placeholder="พิมพ์ชื่อสิ่งของ..."
               value={searchString}
               onChange={(e) => setSearchString(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all pl-11 pr-12 shadow-sm font-medium"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-400 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all pl-11 pr-12 shadow-sm font-medium"
             />
             {searchString && (
               <button
@@ -130,7 +130,7 @@ function SearchPageContent() {
                 onClick={() => setFilterType(tab.value)}
                 className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                   filterType === tab.value
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-amber-600 text-white shadow-sm'
                     : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
                 }`}
               >
@@ -142,7 +142,7 @@ function SearchPageContent() {
             onClick={() => setShowFilter(!showFilter)}
             className={`px-3 py-2 rounded-xl border flex items-center gap-1.5 transition-all text-xs font-bold shadow-sm shrink-0 ${
               hasActiveFilter
-                ? 'bg-indigo-50 text-indigo-600 border-indigo-200'
+                ? 'bg-amber-50 text-amber-600 border-amber-200'
                 : 'bg-white text-slate-500 border-slate-200/80 hover:bg-slate-50 hover:text-slate-800'
             }`}
           >
@@ -177,7 +177,7 @@ function SearchPageContent() {
               <select
                 value={filterPlace}
                 onChange={(e) => setFilterPlace(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 font-medium focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 transition-all appearance-none"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 font-medium focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all appearance-none"
               >
                 {PLACES.map(p => (
                   <option key={p.value} value={p.value}>{p.label}</option>

@@ -46,7 +46,7 @@ export default async function ProfilePage() {
       <div className="max-w-2xl mx-auto space-y-6">
 
         {/* ── Profile Card ── */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-3xl p-6 text-white">
+        <div className="relative overflow-hidden bg-gradient-to-br from-amber-600 to-amber-700 rounded-3xl p-6 text-white">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4" />
 
@@ -70,7 +70,7 @@ export default async function ProfilePage() {
           {[
             { label: 'แจ้งของหาย',  value: lostItems.length,    color: 'text-rose-500',    bg: 'bg-rose-50',    border: 'border-rose-100' },
             { label: 'แจ้งพบของ',   value: foundItems.length,   color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100' },
-            { label: 'สำเร็จแล้ว',  value: resolvedItems.length, color: 'text-indigo-600',  bg: 'bg-indigo-50',  border: 'border-indigo-100' },
+            { label: 'สำเร็จแล้ว',  value: resolvedItems.length, color: 'text-amber-600',  bg: 'bg-amber-50',  border: 'border-amber-100' },
           ].map(s => (
             <div key={s.label} className={`${s.bg} border ${s.border} rounded-2xl p-4 flex flex-col items-center`}>
               <span className={`text-3xl font-bold ${s.color} font-display leading-none`}>{s.value}</span>
@@ -130,12 +130,12 @@ export default async function ProfilePage() {
         {/* ── Resolved Items (Accordion) ── */}
         {resolvedItems.length > 0 && (
           <details className="group">
-            <summary className="flex items-center justify-between p-4 bg-white border border-slate-200/80 rounded-2xl cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none hover:border-indigo-200 transition-colors">
+            <summary className="flex items-center justify-between p-4 bg-white border border-slate-200/80 rounded-2xl cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none hover:border-amber-200 transition-colors">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-emerald-50 group-open:bg-indigo-50 flex items-center justify-center transition-colors">
-                  <CheckCircle2 size={16} className="text-emerald-500 group-open:text-indigo-500 transition-colors" />
+                <div className="w-8 h-8 rounded-xl bg-emerald-50 group-open:bg-amber-50 flex items-center justify-center transition-colors">
+                  <CheckCircle2 size={16} className="text-emerald-500 group-open:text-amber-500 transition-colors" />
                 </div>
-                <span className="text-sm font-bold text-slate-900 group-open:text-indigo-600 transition-colors font-display">รายการที่สำเร็จแล้ว</span>
+                <span className="text-sm font-bold text-slate-900 group-open:text-amber-600 transition-colors font-display">รายการที่สำเร็จแล้ว</span>
                 <ChevronRight size={16} className="text-slate-300 group-open:rotate-90 transition-transform duration-200" />
               </div>
               <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">

@@ -43,7 +43,7 @@ export function SideNav({ userName: initialUserName, unreadCount = 0 }) {
       {/* ── Brand ── */}
       <div className="px-6 pt-8 pb-6 border-b border-slate-100">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-200 flex-shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-200 flex-shrink-0">
             <Zap size={18} className="text-white" strokeWidth={2.5} />
           </div>
           <div>
@@ -55,7 +55,7 @@ export function SideNav({ userName: initialUserName, unreadCount = 0 }) {
         {/* User card */}
         {userName ? (
           <div className="flex items-center gap-3 bg-slate-50 rounded-2xl p-3 border border-slate-100">
-            <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-sm flex-shrink-0">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0 flex-1">
@@ -113,7 +113,7 @@ export function SideNav({ userName: initialUserName, unreadCount = 0 }) {
                 prefetch={true}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-150 ${
                   active
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-amber-600 text-white shadow-sm'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
@@ -171,20 +171,20 @@ export default function BottomNav({ unreadCount = 0 }) {
               href={href}
               prefetch={true}
               className={`flex flex-col items-center gap-1 py-3 px-2 relative transition-colors duration-150 ${
-                active ? 'text-indigo-600' : 'text-slate-400 hover:text-slate-700'
+                active ? 'text-amber-600' : 'text-slate-400 hover:text-slate-700'
               }`}
             >
               {active && (
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-indigo-600 rounded-b-full" />
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-amber-600 rounded-b-full" />
               )}
               <div className="relative">
                 <div className={`flex items-center justify-center w-9 h-9 rounded-xl transition-colors duration-150 ${
-                  active ? 'bg-indigo-50' : ''
+                  active ? 'bg-amber-50' : ''
                 }`}>
                   <Icon
                     size={20}
                     strokeWidth={active ? 2.5 : 1.8}
-                    className={active ? 'text-indigo-600' : 'text-slate-400'}
+                    className={active ? 'text-amber-600' : 'text-slate-400'}
                   />
                 </div>
                 {hasBadge && (
@@ -193,7 +193,7 @@ export default function BottomNav({ unreadCount = 0 }) {
                   </span>
                 )}
               </div>
-              <span className={`text-[10px] font-semibold tracking-wide ${active ? 'text-indigo-600' : 'text-slate-400'}`}>
+              <span className={`text-[10px] font-semibold tracking-wide ${active ? 'text-amber-600' : 'text-slate-400'}`}>
                 {label}
               </span>
             </Link>

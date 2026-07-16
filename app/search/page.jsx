@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AppShell from '@/components/AppShell';
 import { Input, Select } from '@/components/Input';
@@ -31,7 +31,7 @@ const PLACES = [
   { value: 'อื่นๆ', label: 'อื่นๆ' },
 ];
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const supabase = createClient();
 
@@ -239,5 +239,13 @@ export default function SearchPage() {
         </div>
       )}
     </AppShell>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-center text-muted">กำลังโหลด...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

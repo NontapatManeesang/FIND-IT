@@ -22,7 +22,9 @@ export default async function ItemDetailPage({ params }) {
 
   const isOwner = user && user.id === item.user_id;
   const isResolved = item.status === 'resolved';
-  const ownerName = `ผู้ใช้ ...${item.user_id?.slice(-6) || ''}`;
+  
+  // Simple fallback - show "ผู้แจ้ง" instead of UID
+  const ownerName = isOwner ? 'คุณ' : 'ผู้แจ้ง';
 
   return (
     <AppShell

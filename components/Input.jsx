@@ -12,11 +12,11 @@ export function Input({ icon: Icon, className = '', ...props }) {
   return (
     <div className="relative">
       {Icon && (
-        <Icon size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
+        <Icon size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
       )}
       <input
-        className={`w-full rounded-xl border border-line bg-card px-3.5 py-3 text-sm text-ink placeholder:text-muted/70 focus:border-ink transition-colors ${
-          Icon ? 'pl-10' : ''
+        className={`w-full rounded-2xl border border-line bg-[#F9FAFB] px-4 py-3.5 text-[15px] text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 transition-all ${
+          Icon ? 'pl-11' : ''
         } ${className}`}
         {...props}
       />
@@ -27,7 +27,7 @@ export function Input({ icon: Icon, className = '', ...props }) {
 export function Textarea({ className = '', ...props }) {
   return (
     <textarea
-      className={`w-full rounded-xl border border-line bg-card px-3.5 py-3 text-sm text-ink placeholder:text-muted/70 focus:border-ink transition-colors resize-none ${className}`}
+      className={`w-full rounded-2xl border border-line bg-[#F9FAFB] px-4 py-3.5 text-[15px] text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 transition-all resize-none ${className}`}
       {...props}
     />
   );
@@ -36,7 +36,7 @@ export function Textarea({ className = '', ...props }) {
 export function Select({ className = '', children, ...props }) {
   return (
     <select
-      className={`w-full rounded-xl border border-line bg-card px-3.5 py-3 text-sm text-ink focus:border-ink transition-colors ${className}`}
+      className={`w-full appearance-none rounded-2xl border border-line bg-[#F9FAFB] px-4 py-3.5 text-[15px] text-ink focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 transition-all ${className}`}
       {...props}
     >
       {children}

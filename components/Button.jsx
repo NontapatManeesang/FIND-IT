@@ -6,14 +6,14 @@ export default function Button({
   ...props
 }) {
   const base =
-    'w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none';
+    'w-full inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-[15px] font-semibold transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none';
 
   const variants = {
-    primary: 'bg-ink text-paper hover:bg-ink2',
-    secondary: 'bg-transparent text-ink border border-ink/20 hover:bg-line/50',
-    ghost: 'bg-line/40 text-ink hover:bg-line/70',
-    lost: 'bg-lost text-paper hover:opacity-90',
-    found: 'bg-found text-paper hover:opacity-90',
+    primary: 'bg-primary text-white shadow-sm hover:shadow-md hover:bg-blue-700',
+    secondary: 'bg-white text-ink border border-line shadow-sm hover:bg-gray-50',
+    ghost: 'bg-transparent text-muted hover:bg-gray-100 hover:text-ink',
+    lost: 'bg-lost text-white shadow-sm hover:shadow-md hover:opacity-90',
+    found: 'bg-found text-white shadow-sm hover:shadow-md hover:opacity-90',
   };
 
   return (

@@ -2,22 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Lock } from 'lucide-react';
-import { login } from '@/app/login/actions';
-
+import { Mail, Lock, User } from 'lucide-react';
+import { signup } from '@/app/login/actions';
 import AppShell from '@/components/AppShell';
 import Logo from '@/components/Logo';
 import { Field, Input } from '@/components/Input';
-import { supabase } from '@/lib/supabase';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleLogin = async (formData) => {
+  const handleSignup = async (formData) => {
     setLoading(true);
     setError(null);
-    const result = await login(formData);
+    const result = await signup(formData);
     if (result?.error) {
       setError(result.error);
     }
@@ -29,9 +27,7 @@ export default function LoginPage() {
       <div className="flex h-full min-h-[90vh] flex-col justify-center py-8">
         <div className="mb-8 flex flex-col items-center">
           <Logo size="md" />
-          <p className="mt-2 text-xs text-muted">
-            เข้าสู่ระบบเพื่อแจ้งหรือค้นหาสิ่งของ
-          </p>
+          <p className="mt-2 text-xs text-muted">สมัครสมาชิกเพื่อเริ่มใช้งาน</p>
         </div>
 
         {error && (
@@ -41,7 +37,16 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form action={handleLogin} className="space-y-1">
+        <form action={handleSignup} className="space-y-1">
+          <Field label="ชื่อ-นามสกุล">
+            <Input
+              icon={User}
+              type="text"
+              name="display_name"
+              placeholder="ชื่อ นามสกุล"
+            />
+          </Field>
+
           <Field label="อีเมล">
             <Input
               icon={Mail}
@@ -52,7 +57,7 @@ export default function LoginPage() {
             />
           </Field>
 
-          <Field label="รหัสผ่าน">
+          <Field label="รหัสผ่าน" hint="อย่างน้อย 6 ตัวอักษร">
             <Input
               icon={Lock}
               type="password"
@@ -74,29 +79,19 @@ export default function LoginPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                   </svg>
-                  กำลังเข้าสู่ระบบ...
+                  กำลังสมัครสมาชิก...
                 </>
-              ) : 'เข้าสู่ระบบ'}
+              ) : 'สมัครสมาชิก'}
             </button>
           </div>
         </form>
 
-        <div className="my-6 flex items-center gap-3">
-          <div className="h-px flex-1 bg-line" />
-          <span className="text-[11px] text-muted">หรือ</span>
-          <div className="h-px flex-1 bg-line" />
+        <div className="mt-6 text-center text-[13px] text-muted">
+          มีบัญชีอยู่แล้ว?{' '}
+          <Link href="/login" className="text-primary font-semibold">
+            เข้าสู่ระบบ
+          </Link>
         </div>
-
-        <Link href="/register">
-          <button className="w-full flex items-center justify-center gap-2 rounded-2xl border border-line bg-white text-ink py-3.5 text-[15px] font-medium hover:bg-gray-50 hover:border-gray-300 transition-all">
-            <Mail size={16} />
-            สมัครสมาชิกใหม่
-          </button>
-        </Link>
-
-        <p className="mt-8 text-center text-[11px] text-muted">
-          การเข้าสู่ระบบถือว่ายอมรับข้อกำหนดการใช้งานของมหาวิทยาลัย
-        </p>
       </div>
     </AppShell>
   );

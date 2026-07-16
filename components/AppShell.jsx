@@ -1,9 +1,9 @@
 import TopBar from './TopBar';
-import BottomNav from './BottomNav';
+import BottomNav, { SideNav } from './BottomNav';
 
 /**
- * AppShell — the ONE template shared by every screen in FindIt.
- * Each of the 7 pages only changes: title / backHref / showNav / children.
+ * AppShell — ONE template for all pages in FindIt.
+ * Responsive: Desktop gets sidebar, mobile gets bottom nav.
  */
 export default function AppShell({
   title,
@@ -12,13 +12,30 @@ export default function AppShell({
   showTopBar = true,
   showNav = true,
   children,
+  userName,
+  unreadCount = 0,
+  rightAction,
 }) {
   return (
     <div className="app-stage">
+      {/* Desktop Sidebar */}
+      {showNav && <SideNav userName={userName} unreadCount={unreadCount} />}
+
+      {/* Main Viewport */}
       <div className="app-viewport">
-        {showTopBar && <TopBar title={title} subtitle={subtitle} backHref={backHref} />}
-        <main className="flex-1 overflow-y-auto px-5 pb-6 pt-4">{children}</main>
-        {showNav && <BottomNav />}
+        {showTopBar && (
+          <TopBar
+            title={title}
+            subtitle={subtitle}
+            backHref={backHref}
+            rightAction={rightAction}
+          />
+        )}
+        <main className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6 pt-4">
+          {children}
+        </main>
+        {/* Mobile Bottom Nav */}
+        {showNav && <BottomNav unreadCount={unreadCount} />}
       </div>
     </div>
   );

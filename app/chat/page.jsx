@@ -28,7 +28,23 @@ export default async function ChatListPage() {
         otherId,
         lastMessage: msg,
         unread: 0,
+        itemId: msg.item_id,
+        items: msg.item_id ? [msg.item_id] : [],
       });
+    } else {
+      // Update last message if this one is newer
+      const conv = conversationMap.get(otherId);
+      if (new Date(msg.created_at) > new Date(conv.lastMessage.created_at)) {
+        conv.lastMessage = msg;
+      }
+      // Collect all items discussed in this conversation
+      if (msg.item_id && !conv.items.includes(msg.item_id)) {
+        conv.items.push(msg.item_id);
+      }
+      // Update itemId to most recent item
+      if (msg.item_id) {
+        conv.itemId = msg.item_id;
+      }
     }
     // Count unread
     if (msg.receiver_id === user.id && !msg.is_read) {
@@ -48,21 +64,22 @@ export default async function ChatListPage() {
         .eq('user_id', conv.otherId)
         .limit(1);
 
-      // Check if item referenced in last message
-      let itemTitle = null;
-      if (conv.lastMessage.item_id) {
-        const { data: itemData } = await supabase
+      // Fetch all items discussed in this conversation
+      let itemTitles = [];
+      if (conv.items && conv.items.length > 0) {
+        const { data: itemsData } = await supabase
           .from('items')
-          .select('title')
-          .eq('id', conv.lastMessage.item_id)
-          .single();
-        itemTitle = itemData?.title;
+          .select('id, title, type')
+          .in('id', conv.items);
+        if (itemsData) {
+          itemTitles = itemsData;
+        }
       }
 
       return {
         ...conv,
         displayName: `ผู้ใช้ ...${conv.otherId.slice(-6)}`,
-        itemTitle,
+        itemTitles,
       };
     })
   );
@@ -130,10 +147,19 @@ export default async function ChatListPage() {
                   </p>
                   
                   <div className="flex items-center justify-between mt-1.5">
-                     {conv.itemTitle ? (
-                      <p className="text-[10px] font-semibold text-amber-600 truncate bg-amber-50 px-2 py-0.5 rounded-md inline-block">
-                        📦 {conv.itemTitle}
-                      </p>
+                     {conv.itemTitles && conv.itemTitles.length > 0 ? (
+                      <div className="flex items-center gap-1 flex-wrap">
+                        {conv.itemTitles.slice(0, 2).map(item => (
+                          <span key={item.id} className={`text-[10px] font-semibold truncate px-2 py-0.5 rounded-md inline-block ${
+                            item.type === 'lost' ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600'
+                          }`}>
+                            {item.type === 'lost' ? '🔴' : '�'} {item.title}
+                          </span>
+                        ))}
+                        {conv.itemTitles.length > 2 && (
+                          <span className="text-[10px] text-slate-400">+{conv.itemTitles.length - 2}</span>
+                        )}
+                      </div>
                     ) : <div />}
                     <p className="text-[10px] font-medium text-slate-400 flex items-center gap-1 shrink-0">
                       <Clock size={10} />
